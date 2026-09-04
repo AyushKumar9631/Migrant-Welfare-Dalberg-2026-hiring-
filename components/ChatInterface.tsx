@@ -3,9 +3,17 @@
 import { useState } from 'react'
 import { Send, Loader2, MessageCircle } from 'lucide-react'
 
+interface Scheme {
+  name: string
+  category: string
+  benefit: string
+  eligibility: string
+}
+
 interface Message {
   role: 'user' | 'assistant'
   content: string
+  schemes?: Scheme[]
 }
 
 export default function ChatInterface() {
@@ -52,10 +60,28 @@ export default function ChatInterface() {
           content: `Error: ${data.error}`
         }])
       } else {
-        setMessages(prev => [...prev, {
-          role: 'assistant',
-          content: data.response
-        }])
+        // Try to parse JSON response for schemes
+        try {
+          const parsed = JSON.parse(data.response)
+          if (parsed.message && parsed.schemes) {
+            setMessages(prev => [...prev, {
+              role: 'assistant',
+              content: parsed.message,
+              schemes: parsed.schemes
+            }])
+          } else {
+            setMessages(prev => [...prev, {
+              role: 'assistant',
+              content: data.response
+            }])
+          }
+        } catch {
+          // Not JSON, treat as plain text
+          setMessages(prev => [...prev, {
+            role: 'assistant',
+            content: data.response
+          }])
+        }
       }
     } catch (error) {
       setMessages(prev => [...prev, {
@@ -93,13 +119,46 @@ export default function ChatInterface() {
             className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-[80%] rounded-lg p-3 ${
+              className={`max-w-[80%] ${
                 message.role === 'user'
-                  ? 'bg-primary text-white'
-                  : 'bg-gray-100 text-gray-900'
+                  ? 'bg-primary text-white rounded-lg p-3'
+                  : ''
               }`}
             >
-              <p className="whitespace-pre-wrap">{message.content}</p>
+              {message.role === 'user' ? (
+                <p className="whitespace-pre-wrap">{message.content}</p>
+              ) : (
+                <div>
+                  <div className="bg-gray-100 text-gray-900 rounded-lg p-3 mb-2">
+                    <p className="whitespace-pre-wrap">{message.content}</p>
+                  </div>
+                  {message.schemes && message.schemes.length > 0 && (
+                    <div className="space-y-2">
+                      {message.schemes.map((scheme, idx) => (
+                        <div
+                          key={idx}
+                          className="bg-gradient-to-r from-solution/10 to-accent/10 border-l-4 border-solution rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer"
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <h4 className="font-bold text-gray-900 mb-1">{scheme.name}</h4>
+                              <span className="inline-block px-2 py-0.5 bg-solution/20 text-solution text-xs font-semibold rounded-full mb-2">
+                                {scheme.category}
+                              </span>
+                              <p className="text-sm text-gray-700 mb-1">
+                                <strong>Benefit:</strong> {scheme.benefit}
+                              </p>
+                              <p className="text-xs text-gray-600">
+                                <strong>Eligibility:</strong> {scheme.eligibility}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         ))}
