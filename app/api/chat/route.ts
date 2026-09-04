@@ -35,7 +35,7 @@ export async function POST(req: Request) {
           ...history.slice(-6),
           { role: 'user', content: message }
         ],
-        model: 'llama-3.3-70b-versatile',
+        model: 'llama-3.1-8b-instant',
         temperature: 0.7,
         max_tokens: 1024,
       })
