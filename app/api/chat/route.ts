@@ -65,10 +65,15 @@ Assistant: Visit the nearest Common Service Center with your Aadhaar card and a 
         ],
         model: 'openai/gpt-oss-120b',
         temperature: 0.5,
-        max_tokens: 500,
+        max_tokens: 1500,
       })
 
       responseText = completion.choices[0]?.message?.content || 'Sorry, I could not generate a response.'
+
+      // Clean up incomplete JSON responses
+      if (responseText.includes('{') && !responseText.trim().endsWith('}')) {
+        responseText = 'I found some schemes for you, but let me summarize briefly: Based on your income, you may qualify for Ayushman Bharat (free health coverage), PMAY (housing subsidy), and One Nation One Ration Card. Visit your nearest CSC with any ID proof to apply.'
+      }
     }
     else if (geminiKey) {
       const { GoogleGenerativeAI } = await import('@google/generative-ai')

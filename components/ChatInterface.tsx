@@ -61,8 +61,10 @@ export default function ChatInterface() {
         }])
       } else {
         // Try to parse JSON response for schemes
+        let responseText = data.response
         try {
-          const parsed = JSON.parse(data.response)
+          // Try to parse as JSON
+          const parsed = JSON.parse(responseText)
           if (parsed.message && parsed.schemes) {
             setMessages(prev => [...prev, {
               role: 'assistant',
@@ -72,15 +74,24 @@ export default function ChatInterface() {
           } else {
             setMessages(prev => [...prev, {
               role: 'assistant',
-              content: data.response
+              content: responseText
             }])
           }
         } catch {
-          // Not JSON, treat as plain text
-          setMessages(prev => [...prev, {
-            role: 'assistant',
-            content: data.response
-          }])
+          // Not valid JSON, check if it looks like partial JSON
+          if (responseText.includes('{') && responseText.includes('"schemes"')) {
+            // Looks like JSON but incomplete - show as plain text
+            setMessages(prev => [...prev, {
+              role: 'assistant',
+              content: responseText
+            }])
+          } else {
+            // Plain text response
+            setMessages(prev => [...prev, {
+              role: 'assistant',
+              content: responseText
+            }])
+          }
         }
       }
     } catch (error) {
