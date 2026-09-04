@@ -1,6 +1,36 @@
 # Migrant Welfare Access - Patna
 
-A prototype website demonstrating technology-led solutions for improving welfare access for low-income urban migrants in Patna, Bihar.
+<div align="center">
+
+## 🌐 **[VIEW LIVE WEBSITE →](https://my-project-five-navy-64.vercel.app/)**
+
+**Improving welfare access for 500,000+ urban migrants in Patna through technology-led solutions**
+
+---
+
+### 📊 Quick Overview
+
+| 🎯 **Problem** | 💡 **Solution** | 🤖 **Tech** | 💰 **Cost** |
+|:---:|:---:|:---:|:---:|
+| 500K+ migrants excluded from welfare benefits | AI-powered assistant + intervention strategies | Next.js, Groq AI, Vercel | ₹5 Crore / 24 months |
+
+### ✨ Key Features
+
+```
+🤖 AI Welfare Assistant    |  📱 Mobile-First Design    |  🗺️ Interactive Solutions
+  Smart chatbot helps          Responsive on all           SAATHI & PRAMAN
+  navigate schemes             devices                      intervention models
+```
+
+### 🚀 Quick Links
+
+- **[Try AI Assistant](https://my-project-five-navy-64.vercel.app/assistant)** - Chat with welfare bot
+- **[Compare Solutions](https://my-project-five-navy-64.vercel.app/compare)** - SAATHI vs PRAMAN
+- **[View Resources](https://my-project-five-navy-64.vercel.app/resources)** - Government schemes info
+
+</div>
+
+---
 
 ## Overview
 
