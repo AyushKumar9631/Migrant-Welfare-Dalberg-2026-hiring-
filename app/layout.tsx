@@ -9,7 +9,6 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'SAATHI - Migrant Welfare Access | Patna',
   description: 'Improving welfare access for 500,000+ urban migrants in Patna through technology and community support',
-  keywords: 'migrant welfare, Patna, Bihar, government schemes, welfare access, SAATHI, documentation',
 }
 
 export default function RootLayout({
