@@ -175,7 +175,7 @@ export default function AboutPage() {
           <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg">
             <ul className="space-y-2 text-gray-700">
               <li>• <strong>Geographic scope:</strong> Patna municipal area + peri-urban migrant settlements</li>
-              <li>• <strong>Target population:</strong> Internal migrants earning <₹15,000/month who moved in last 5 years</li>
+              <li>• <strong>Target population:</strong> Internal migrants earning &lt;₹15,000/month who moved in last 5 years</li>
               <li>• <strong>Schemes focus:</strong> Food security, health insurance, housing subsidies, skill development</li>
               <li>• <strong>Government cooperation:</strong> Bihar state government provides necessary support for integration</li>
               <li>• <strong>Infrastructure:</strong> Existing digital systems (Aadhaar, CSCs) remain accessible</li>
