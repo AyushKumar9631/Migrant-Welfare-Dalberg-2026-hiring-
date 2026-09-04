@@ -48,7 +48,8 @@ export default function ChatInterface() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: textToSend,
-          history: messages.slice(-6) // Last 3 exchanges for context
+          // Strip schemes from history - only send role and content
+          history: messages.slice(-6).map(m => ({ role: m.role, content: m.content }))
         })
       })
 
